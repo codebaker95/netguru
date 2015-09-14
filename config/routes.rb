@@ -7,8 +7,9 @@ Rails.application.routes.draw do
     get :subjects
   end
 
-  resources :students do
+  concern :has_subjects do
     get :subjects
   end
-  resources :teachers
+  resources :students, concerns: :has_subjects
+  resources :teachers, concerns: :has_subjects
 end
