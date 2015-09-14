@@ -3,7 +3,9 @@ Rails.application.routes.draw do
 
   root 'visitors#index'
 
-  get 'reports/subjects'
+  namespace :reports, as: :report do
+    get :subjects
+  end
 
   resources :students do
     get :subjects
