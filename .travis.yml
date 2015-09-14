@@ -2,5 +2,6 @@ rvm:
   - 2.2.0
 before_script:
   - psql -c 'create database workshops_test;' -U postgres
+  - cp config/database.sample.tml config/database.yml
 addons:
   postgresql: '9.3'
