@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150914171954) do
+ActiveRecord::Schema.define(version: 20150914195814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,27 @@ ActiveRecord::Schema.define(version: 20150914171954) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "comments", force: :cascade do |t|
+    t.string   "content"
+    t.integer  "user_id"
+    t.integer  "note_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "comments", ["note_id"], name: "index_comments_on_note_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "note_categories", force: :cascade do |t|
+    t.integer  "note_id"
+    t.integer  "category_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "note_categories", ["category_id"], name: "index_note_categories_on_category_id", using: :btree
+  add_index "note_categories", ["note_id"], name: "index_note_categories_on_note_id", using: :btree
 
   create_table "notes", force: :cascade do |t|
     t.string   "title"
@@ -41,6 +62,26 @@ ActiveRecord::Schema.define(version: 20150914171954) do
   add_index "participations", ["student_id"], name: "index_participations_on_student_id", using: :btree
   add_index "participations", ["subject_item_id"], name: "index_participations_on_subject_item_id", using: :btree
 
+  create_table "payments", force: :cascade do |t|
+    t.integer  "student_id"
+    t.date     "january"
+    t.date     "february"
+    t.date     "march"
+    t.date     "april"
+    t.date     "may"
+    t.date     "june"
+    t.date     "july"
+    t.date     "august"
+    t.date     "september"
+    t.date     "october"
+    t.date     "november"
+    t.date     "december"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "payments", ["student_id"], name: "index_payments_on_student_id", using: :btree
+
   create_table "students", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -53,8 +94,10 @@ ActiveRecord::Schema.define(version: 20150914171954) do
     t.integer  "subject_item_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "student_id"
   end
 
+  add_index "subject_item_notes", ["student_id"], name: "index_subject_item_notes_on_student_id", using: :btree
   add_index "subject_item_notes", ["subject_item_id"], name: "index_subject_item_notes_on_subject_item_id", using: :btree
 
   create_table "subject_items", force: :cascade do |t|
@@ -104,6 +147,7 @@ ActiveRecord::Schema.define(version: 20150914171954) do
 
   add_foreign_key "participations", "students"
   add_foreign_key "participations", "subject_items"
+  add_foreign_key "subject_item_notes", "students"
   add_foreign_key "subject_item_notes", "subject_items"
   add_foreign_key "subject_items", "teachers"
   add_foreign_key "user_categories", "categories"
