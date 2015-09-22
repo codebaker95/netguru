@@ -27,7 +27,6 @@ db/*.sqlite3
 *.sassc
 .redcar/
 .sass-cache
-/app/assets/javascripts/react_bundle.js
 /config/config.yml
 /config/database.yml
 /coverage.data
