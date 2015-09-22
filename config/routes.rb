@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'users/index'
+
   devise_for :users
 
   root 'visitors#index'
@@ -12,4 +14,9 @@ Rails.application.routes.draw do
   end
   resources :students, concerns: :has_subjects
   resources :teachers, concerns: :has_subjects
+  resources :users, only: :index do
+    member do
+      get :messages
+    end
+  end
 end

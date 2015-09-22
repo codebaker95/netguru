@@ -14,7 +14,9 @@
 #= require jquery_ujs
 #= require bootstrap-datepicker
 #= require turbolinks
+#= require ws_chatter
 #= require bootstrap-sprockets
+#= require react_bundle
 #= require_tree .
 
 $(document).on 'ready page:load', ->

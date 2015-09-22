@@ -1,11 +1,10 @@
-// color variables
-$lime-green: #32CD32;
-$white: #FFFFFF;
+@import "variables";
 
 // override bootstrap variables
 $navbar-default-color: $white;
 $navbar-default-link-color: $white;
-$navbar-default-bg: $lime-green;
+$navbar-default-bg: $green;
+$font-family-sans-serif: "Lato";
 
 // import the CSS framework
 @import "bootstrap-sprockets";
