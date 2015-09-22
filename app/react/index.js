@@ -31,9 +31,23 @@ class ChatContainer extends React.Component {
 }
 
 $(document).on("ready page:load", () => {
-  component = React.render(<ChatContainer />, $('#chat-container')[0])
+  $('.datepicker').datepicker({
+    format: "dd MM yyyy",
+    clearBtn: true
+  })
+  $('.datepicker').on('focus', () =>
+    $('div.datepicker').css('top', parseInt($('div.datepicker').css('top')) + 55)
+  )
+  $('#datatables').DataTable()
+  let element = $('#chat-container')[0];
+  if(element) {
+    component = React.render(<ChatContainer />, element)
+  }
 })
 
 $(document).on("page:before-unload", () => {
-  React.unmountComponentAtNode($('#chat-container')[0])
+  let element = $('#chat-container')[0];
+  if(element) {
+    React.unmountComponentAtNode(element)
+  }
 })

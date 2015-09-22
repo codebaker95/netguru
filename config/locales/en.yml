@@ -2,6 +2,7 @@ en:
   navbar:
     students: Students
     teachers: Teachers
+    payments: Payments
     reports: Reports
     reports_subjects: Subjects
     logout: Logout

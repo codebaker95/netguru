@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150919221620) do
+ActiveRecord::Schema.define(version: 20150922212110) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -76,22 +76,13 @@ ActiveRecord::Schema.define(version: 20150919221620) do
 
   create_table "payments", force: :cascade do |t|
     t.integer  "student_id"
-    t.date     "january"
-    t.date     "february"
-    t.date     "march"
-    t.date     "april"
-    t.date     "may"
-    t.date     "june"
-    t.date     "july"
-    t.date     "august"
-    t.date     "september"
-    t.date     "october"
-    t.date     "november"
-    t.date     "december"
+    t.integer  "month"
+    t.integer  "year"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
+  add_index "payments", ["student_id", "month", "year"], name: "index_payments_on_student_id_and_month_and_year", unique: true, using: :btree
   add_index "payments", ["student_id"], name: "index_payments_on_student_id", using: :btree
 
   create_table "students", force: :cascade do |t|
@@ -162,6 +153,7 @@ ActiveRecord::Schema.define(version: 20150919221620) do
 
   add_foreign_key "participations", "students"
   add_foreign_key "participations", "subject_items"
+  add_foreign_key "payments", "students"
   add_foreign_key "subject_item_notes", "students"
   add_foreign_key "subject_item_notes", "subject_items"
   add_foreign_key "subject_items", "teachers"

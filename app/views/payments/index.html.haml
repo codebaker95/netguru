@@ -1,0 +1,10 @@
+%table.table#datatables
+  %thead
+    %th Student
+    %th Month
+    %th Year
+  - payments.each do |payment|
+    %tr
+      %td= payment.student.decorate.full_name
+      %td= payment.month
+      %td= payment.year

@@ -19,10 +19,18 @@ teachers = Teacher.all
 end
 
 40.times do
-  Student.create!(
+  student = Student.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name
   )
+
+  rand(1..12).times do |n|
+    Payment.create!(
+      student: student,
+      month: n+1,
+      year: 2015
+    )
+  end
 end
 
 students = Student.all

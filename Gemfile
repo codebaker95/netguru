@@ -23,6 +23,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'faker'
 gem 'ws_chatter', github: 'codebaker95/ws_chatter'
 gem 'react_webpack_rails'
+gem 'jquery-datatables-rails', '~> 3.3.0'
 
 group :development do
   gem 'better_errors'

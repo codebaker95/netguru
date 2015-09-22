@@ -12,16 +12,11 @@
 #
 #= require jquery
 #= require jquery_ujs
-#= require bootstrap-datepicker
 #= require turbolinks
+#= require bootstrap-datepicker
+#= require dataTables/jquery.dataTables
+#= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 #= require ws_chatter
 #= require bootstrap-sprockets
 #= require react_bundle
 #= require_tree .
-
-$(document).on 'ready page:load', ->
-  $('.datepicker').datepicker
-    format: "dd MM yyyy"
-    clearBtn: true
-  $('.datepicker').on 'focus', ->
-    $('div.datepicker').css('top', parseInt($('div.datepicker').css('top')) + 55)
