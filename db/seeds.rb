@@ -1,8 +1,18 @@
 puts "Seeds: start"
 TEACHER_TITLES = %w(Dr. Prof. TA)
-User.create!(email: 'admin@admin.com',password: 'adminadmin', username: "admin")
+admin = User.create!(email: 'admin@admin.com',password: 'adminadmin', username: "admin")
 
-30.times do
+10.times do
+  user = User.create!(
+    username: Faker::Internet.user_name,
+    email: Faker::Internet.email,
+    password: 'password'
+  )
+
+  rand(0..5).times { Message.create(sender: user, recipient: admin, body: Faker::Lorem.sentence) }
+end
+
+3.times do
   Teacher.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
@@ -11,14 +21,14 @@ User.create!(email: 'admin@admin.com',password: 'adminadmin', username: "admin")
 end
 
 teachers = Teacher.all
-20.times do
+5.times do
   SubjectItem.create!(
     title: Faker::Lorem.sentence,
     teacher: teachers.sample
   )
 end
 
-40.times do
+25.times do
   student = Student.create!(
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name
