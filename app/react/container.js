@@ -11,20 +11,31 @@ import Chat from './components/chat'
 const querySelector = state => state.query
 const usersSelector = state => state.users
 
-function selectUsers(users, query) {
+const messageWindowsSelector = state => state.messageWindows
+const messagesSelector = state => state.messages
+
+function isActive(user, messageWindows) {
+  return messageWindows.filter(window => window.id == user.id).length != 0
+}
+
+function selectUsers(users, query, messageWindows) {
+  users = users.map(user => ({...user, active: isActive(user, messageWindows)}))
   if(query.replace(/\s/g,"") === "") return users
   else return users.filter(user => new RegExp(`^${query}`, "i").test(user.username))
 }
 
 const visibleUsersSelector = createSelector(
-  querySelector,
   usersSelector,
-  (query, users) => selectUsers(users, query)
+  querySelector,
+  messageWindowsSelector,
+  (users, query, messageWindows) => selectUsers(users, query, messageWindows)
 )
 
 const activeUsersSelector = createSelector(
   usersSelector,
-  (users) => users.filter(user => user.active).length
+  messageWindowsSelector,
+  (users, messageWindows) =>
+    users.filter(user => isActive(user, messageWindows)).length
 )
 
 const usersListSelector = state => ({
@@ -33,9 +44,6 @@ const usersListSelector = state => ({
   show: state.show,
   active: activeUsersSelector(state)
 })
-
-const messageWindowsSelector = state => state.messageWindows
-const messagesSelector = state => state.messages
 
 function selectMessageWindow(messageWindow, users, messages) {
   return {

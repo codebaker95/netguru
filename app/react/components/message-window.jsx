@@ -4,6 +4,7 @@ class MessageWindow extends Component {
   componentDidMount = () => {
     this.props.fetchMessages(this.props.id)
     this.props.readMessages(this.props.id)
+    this.scrollDown()
   }
 
   componentWillReceiveProps = (newProps) => {
@@ -15,8 +16,7 @@ class MessageWindow extends Component {
 
   componentDidUpdate = (oldProps) => {
     if (oldProps.messages.length != this.props.messages.length) {
-      let div = $("#messages-"+this.props.id)
-      div.scrollTop(div[0].scrollHeight)
+      this.scrollDown()
     }
   }
 
@@ -28,6 +28,11 @@ class MessageWindow extends Component {
     e.preventDefault()
     if (this.props.input === "") return
     this.props.onSubmit(this.props.id, this.props.input)
+  }
+
+  scrollDown = () => {
+    let div = $("#messages-"+this.props.id)
+    div.scrollTop(div[0].scrollHeight)
   }
 
   formatDate = (date) => {

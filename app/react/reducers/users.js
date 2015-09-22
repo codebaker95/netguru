@@ -6,7 +6,7 @@ import { addons } from 'react/addons'
 export default function users(state = [], action) {
   switch(action.type) {
   case SET_USERS:
-    return action.users.map(user => ({...user, active: false}))
+    return action.users
   case SET_STATUS:
     return state.map(user =>
         user.id == action.user_id
@@ -23,12 +23,6 @@ export default function users(state = [], action) {
     return state.map(user =>
         user.id == action.user_id
         ? addons.update(user, { unread: { $apply: x => x + 1 } })
-        : user
-      )
-  case TOGGLE_MESSAGE_WINDOW:
-    return state.map(user =>
-        user.id == action.user_id
-        ? addons.update(user, { active: { $apply: x => !x } })
         : user
       )
   default:
